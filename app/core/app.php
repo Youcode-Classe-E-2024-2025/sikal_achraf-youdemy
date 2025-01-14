@@ -7,6 +7,7 @@ class app {
     function __construct() {
         $arr = $this->geturl();
         $filename = "../app/controller/".ucfirst($arr[0]).".php";
+        show($filename);
         if(file_exists($filename))
         {
             require $filename;

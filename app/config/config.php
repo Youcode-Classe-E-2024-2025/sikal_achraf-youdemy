@@ -9,6 +9,8 @@ define('DBUSER', 'root');
 define('DBPASS', '');
 define('DB', 'mysql');
 
+define('ROOT', 'http://localhost/sikal_achraf-youdemy/public');
+
 const TABLES = "
     CREATE TABLE IF NOT EXISTS Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
