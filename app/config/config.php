@@ -9,6 +9,8 @@ define('DBUSER', 'root');
 define('DBPASS', '');
 define('DB', 'mysql');
 
+define('APP_NAME', 'YouDemy');
+
 define('ROOT', 'http://localhost/sikal_achraf-youdemy/public');
 
 const TABLES = "
@@ -18,7 +20,7 @@ const TABLES = "
     firstname Varchar(50) NOT NULL,
     email VARCHAR(100),
     password VARCHAR(250),
-    role ENUM('Manager', 'User') DEFAULT 'User',
+    role ENUM('student', 'teacher', 'admin') DEFAULT 'student',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
     CREATE TABLE IF NOT EXISTS categories (
