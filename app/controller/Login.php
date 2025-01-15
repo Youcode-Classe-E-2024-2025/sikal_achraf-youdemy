@@ -11,17 +11,12 @@ class login extends Controller
                 $row = $user->first(['email'=>$_POST['email']]);
                 if ($row) {
                     if ($row['password'] === $_POST['password']) {
-                        $_SESSION['USER_DATA'] = $row;
-
+                        Auth::authenticate($row);
                         redirect('home');
                     }
                 }
                 $data['errors']['email']= "Wrong email or password";
-                // message("Your account is successfuly created, Please login");
-                // redirect('login');
         }
-        // $data['errors'] = $user->errors;
-        // $data['title'] = 'signup';
         $this->view('login',$data);
     }
 }
