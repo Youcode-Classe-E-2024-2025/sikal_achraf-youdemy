@@ -10,6 +10,9 @@ class signup extends Controller
             $result = $user->validate($_POST);
             if ($result) {
                 $user->insert($_POST);
+
+                message("Your account is successfuly created, Please login");
+                redirect('login');
             }
         }
         $data['errors'] = $user->errors;
