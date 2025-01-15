@@ -34,4 +34,12 @@
         }
         return false;
     }
+    public static function __callStatic($fun, $args)
+    {
+        $key = str_replace("get", "", strtolower($fun));
+        if (!empty($_SESSION['USER_DATA'][$key])) {
+            return $_SESSION['USER_DATA'][$key];
+        }
+        return '';
+    }
  }

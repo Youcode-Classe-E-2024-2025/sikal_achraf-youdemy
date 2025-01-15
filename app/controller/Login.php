@@ -10,7 +10,7 @@ class login extends Controller
         if ($_SERVER["REQUEST_METHOD"]== "POST") {
                 $row = $user->first(['email'=>$_POST['email']]);
                 if ($row) {
-                    if ($row['password'] === $_POST['password']) {
+                    if (password_verify($_POST['password'],$row['password'])) {
                         Auth::authenticate($row);
                         redirect('home');
                     }

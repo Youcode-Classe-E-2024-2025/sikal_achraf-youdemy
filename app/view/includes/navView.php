@@ -32,9 +32,19 @@
 
           <li><a href="<?=ROOT?>/about">About</a></li>
           <li><a href="<?=ROOT?>/contact">Contact</a></li>
-          <li><a href="<?=ROOT?>/login">login</a></li>
-          <li><a href="<?=ROOT?>/signup">signup</a></li>
-        </ul>
+          <?php if (!auth::logged_in()) {?>
+            <li><a href="<?=ROOT?>/login">login</a></li>
+            <li><a href="<?=ROOT?>/signup">signup</a></li>
+          <?php }else {?>
+          <li class="dropdown"><a href="category"><span>Hi, <?= ucfirst(auth::getfirstname());?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a href="<?=ROOT?>/admin">Dashboard</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="<?=ROOT?>/logout">logout</a></li>
+            </ul>
+          </li>
+          <?php }?>
       </nav><!-- .navbar -->
 
       <div class="position-relative">

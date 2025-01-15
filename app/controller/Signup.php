@@ -9,6 +9,7 @@ class signup extends Controller
         if ($_SERVER["REQUEST_METHOD"]== "POST") {
             $result = $user->validate($_POST);
             if ($result) {
+                $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $user->insert($_POST);
 
                 message("Your account is successfuly created, Please login");
