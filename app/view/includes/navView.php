@@ -36,7 +36,7 @@
             <li><a href="<?=ROOT?>/login">login</a></li>
             <li><a href="<?=ROOT?>/signup">signup</a></li>
           <?php }else {?>
-          <li class="dropdown"><a href="category"><span>Hi, <?= ucfirst(auth::getfirstname());?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li class="dropdown"><a href="category"><span>Hi, <?= ucfirst(auth::getFirstname())?></span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
               <li><a href="<?=ROOT?>/admin">Dashboard</a></li>
               <li><a href="#">Profile</a></li>
