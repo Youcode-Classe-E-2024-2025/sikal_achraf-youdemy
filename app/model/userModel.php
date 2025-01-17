@@ -105,12 +105,11 @@ class user extends model
         "role",
         "slug",
         "about",
-        "Company",
-        "Country",
-        "Address",
-        "Phone",
-        "job",
-        "created_at"
+        "company",
+        "country",
+        "address",
+        "phone",
+        "job"
     ];
     public function validate($data) {
         $this->errors = [];

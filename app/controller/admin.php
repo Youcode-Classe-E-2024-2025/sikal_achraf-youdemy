@@ -25,7 +25,7 @@ class admin extends Controller
     }
     public function profile($id= null) 
     {
-        $is = $id ?? auth::getuser_Id();
+        $id = $id ?? auth::getuser_Id();
         $user = new user();
         $data['row'] = $row = $user->first(['user_id'=>$id]);
         if (!auth::logged_in()) {
