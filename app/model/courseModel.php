@@ -5,6 +5,11 @@ class course extends model
     public $errors = [];
     protected $table = "courses";
 
+    protected $afterSelect= [
+        'get_category_id',
+        'get_user_id',
+    ];
+
     protected $queryColumns= [
         'title',
         'description',
@@ -32,6 +37,35 @@ class course extends model
         }
         return false;
     }
-    
+
+    protected function get_category_id($rows)
+    {
+        $db = new database();
+        if (!empty($rows[0]['category_id'])) {
+            foreach ($rows as $key => $row) {
+                $query = "select * from categories where id = :id limit 1";
+                $cate = $db->query($query,['id'=>$row['category_id']]);
+                if (!empty($cate)) {
+                    $rows[$key]['category_row'] = $cate[0];
+                }
+            }
+        }
+        return $rows;
+    }
+    protected function get_user_id($rows)
+    {
+        $db = new database();
+        if (!empty($rows[0]['user_id'])) {
+            foreach ($rows as $key => $row) {
+                $query = "select * from users where user_id = :id limit 1";
+                $user = $db->query($query,['id'=>$row['user_id']]);
+                if (!empty($user)) {
+                    $user[0]['name'] = $user[0]['firstname']." ".$user[0]['lastname'];
+                    $rows[$key]['user_row'] = $user[0];
+                }
+            }
+        }
+        return $rows;
+    }
 
 }

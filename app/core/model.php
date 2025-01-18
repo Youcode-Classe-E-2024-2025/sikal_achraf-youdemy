@@ -53,6 +53,12 @@ class model extends database
         $query .= " order by $order_by $order ";
         $res = $this->query($query, $data);
         if (is_array($res)) {
+            ////// call afterSelect function ////////////
+            if (property_exists($this, 'afterSelect')) {
+                foreach ($this->afterSelect as $func) {
+                    $res = $this->$func($res);
+                }
+            }
             return $res;
         }
         return false;
@@ -63,6 +69,12 @@ class model extends database
         
         $res = $this->query($query);
         if (is_array($res)) {
+            ////// call afterSelect function ////////////
+            if (property_exists($this, 'afterSelect')) {
+                foreach ($this->afterSelect as $func) {
+                    $res = $this->$func($res);
+                }
+            }
             return $res;
         }
         return false;
@@ -79,6 +91,12 @@ class model extends database
         $query .= " order by user_id $order limit 1";
         $res = $this->query($query, $data);
         if (is_array($res)) {
+            ////// call afterSelect function ////////////
+            if (property_exists($this, 'afterSelect')) {
+                foreach ($this->afterSelect as $func) {
+                    $res = $this->$func($res);
+                }
+            }
             return $res[0];
         }
         return false;
