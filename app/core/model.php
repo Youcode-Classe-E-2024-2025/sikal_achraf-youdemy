@@ -56,7 +56,17 @@ class model extends database
         }
         return false;
     }
-    public function first($data){
+    public function findAll($order = "desc")
+    {
+        $query = "select * from " . $this->table . " order by id ".$order;
+        
+        $res = $this->query($query);
+        if (is_array($res)) {
+            return $res;
+        }
+        return false;
+    }
+    public function first($data, $order = "desc"){
         $keys = array_keys($data);
 
         $query = "select * from " . $this->table . " where ";
@@ -65,7 +75,7 @@ class model extends database
         }
 
         $query = trim($query, "&& ");
-        $query .= " order by user_id desc limit 1";
+        $query .= " order by user_id $order limit 1";
         $res = $this->query($query, $data);
         if (is_array($res)) {
             return $res[0];

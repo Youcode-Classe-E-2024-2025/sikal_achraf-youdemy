@@ -115,10 +115,14 @@ class user extends model
         $this->errors = [];
         if (empty($data['firstname'])) {
             $this->errors['firstname'] = "First name is required";
+        }elseif(!preg_match("/^[a-zA-Z]+$/",trim($data['firstname']))){
+            $this->errors['firstname'] = "First name onley can have small and capital letters";
         }
         
         if (empty($data['lastname'])) {
-            $this->errors['lastname'] = "last name is required";
+            $this->errors['lastname'] = "Last name is required";
+        }elseif(!preg_match("/^[a-zA-Z]+$/",trim($data['lastname']))){
+            $this->errors['lastname'] = "Last name onley can have small and capital letters";
         }
         
         if (empty($data['email'])) {

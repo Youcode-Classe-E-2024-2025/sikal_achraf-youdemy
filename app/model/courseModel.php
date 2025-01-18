@@ -1,88 +1,37 @@
 <?php
-class Courses {
-    private $title;
-    private $description;
-    private $tags;
-    private $category;
-    private $content;
 
-    public function __set($property, $value) {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
+class course extends model
+{
+    public $errors = [];
+    protected $table = "courses";
+
+    protected $queryColumns= [
+        'title',
+        'description',
+        'user_id',
+        'price',
+        'primary_subject',
+        'course_image',
+        'category_id',
+        'created_at'
+    ];
+    public function validate($data) {
+        $this->errors = [];
+        if (empty($data['title'])) {
+            $this->errors['title'] = "A Course title is required";
+        }elseif(!preg_match("/^[a-zA-Z \_\-\&]+$/",trim($data['title']))){
+            $this->errors['title'] = "A Course title onley can have small and capital letters spaces [_&-]";
         }
-        return $this;
-    }
+        
+        if (empty($data['category_id'])) {
+            $this->errors['category_id'] = "Category is required";
+        }
 
-    public function __get($property) {
-        return property_exists($this, $property) ? $this->$property : null;
+        if (empty($this->errors)) {
+            return true;
+        }
+        return false;
     }
+    
 
-    public function addContent(Content $content) {
-        $this->content = $content;
-    }
-
-    public function showContents() {
-        $this->content->createContent()->create();
-    }
-    public function showcourse() {
-        echo $this->title.'<br>';
-        echo $this->description.'<br>';
-        echo $this->category.'<br>';
-        $this->content->createContent()->create();
-        echo '<br><br><br>';
-    }
-    public function insertCourse() {
-        echo $this->title.'<br>';
-        echo $this->description.'<br>';
-        echo $this->category.'<br>';
-        $this->content->createContent()->create();
-        echo '<br><br><br>';
-    }
 }
-
-interface Content {
-    public function createContent();
-}
-
-class VideoContent implements Content {
-    public function createContent() {
-        return new Video();
-    }
-}
-
-class DocumentContent implements Content {
-    public function createContent() {
-        return new Document();
-    }
-}
-
-interface Make {
-    public function create();
-}
-
-class Video implements Make {
-    public function create() {
-        echo "create video-based content<br>";
-    }
-}
-
-class Document implements Make {
-    public function create() {
-        echo "create document-based content<br>";
-    }
-}
-
-$videoContent = new VideoContent();
-$documentContent = new DocumentContent();
-
-$course = new Courses();
-$course->title = "Learn PHP Design Patterns";
-$course->description = "A comprehensive course on PHP design patterns.";
-$course->category = "Programming";
-$course->addContent($videoContent);
-// $course->addContent($documentContent);
-
-
-$course->showCourse();
-
-?>

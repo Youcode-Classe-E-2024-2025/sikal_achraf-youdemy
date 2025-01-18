@@ -60,7 +60,7 @@
                   <form method="post" class="row g-3 needs-validation" novalidate>
                     <div class="col-6">
                       <label for="yourName" class="form-label">First Name</label>
-                      <input type="text" name="firstname" class="form-control <?=!empty($errors["firstname"]) ? 'border-danger':'';?>" id="yourName" required>
+                      <input value="<?= set_value("firstname")?>" type="text" name="firstname" class="form-control <?=!empty($errors["firstname"]) ? 'border-danger':'';?>" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your First name!</div>
                       <?php if (!empty($errors["firstname"])) {?>
                             <small class="text-danger"><?=$errors["firstname"]?></small>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-6">
                       <label for="yourName" class="form-label">Last Name</label>
-                      <input type="text" name="lastname" class="form-control <?=!empty($errors["lastname"]) ? 'border-danger':'';?>" id="yourName" required>
+                      <input value="<?= set_value("lastname")?>" type="text" name="lastname" class="form-control <?=!empty($errors["lastname"]) ? 'border-danger':'';?>" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your Last name!</div>
                       <?php if (!empty($errors["lastname"])) {?>
                             <small class="text-danger"><?=$errors["lastname"]?></small>
@@ -79,7 +79,7 @@
                       <label for="yourUsername" class="form-label">Your Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="email" class="form-control <?=!empty($errors["email"]) ? 'border-danger':'';?>" id="yourUsername" required>
+                        <input value="<?= set_value("email")?>" type="email" name="email" class="form-control <?=!empty($errors["email"]) ? 'border-danger':'';?>" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                       </div>
                         <?php if (!empty($errors["email"])) {?>
