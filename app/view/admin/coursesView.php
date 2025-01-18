@@ -16,7 +16,7 @@
             <option value="" selected="">Course Category...</option>
             <?php if(!empty($categories)):?>
               <?php foreach($categories as $cat):?>
-                <option value="<?= $cat["id"]?>"><?= esc($cat["category"])?></option>
+                <option <?= set_select('category_id',$cat["id"])?> value="<?= $cat["id"]?>"><?= esc($cat["category"])?></option>
               <?php endforeach;?>
             <?php endif;?>
           </select>
@@ -44,7 +44,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Title</th>
         <th scope="col">Category</th>
         <th scope="col">Price</th>
@@ -53,20 +52,23 @@
         <th scope="col">Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Brandon Jacob</td>
-        <td>Design</td>
-        <td>28</td>
-        <td>Figma UI</td>
-        <td>2016-05-25</td>
-        <td>
-          <i class="bi bi-pencil-square"></i>
-          <i class="bi bi-trash-fill"></i>
-        </td>
-      </tr>
-    </tbody>
+    <?php if(!empty($rows)):?>
+      <tbody>
+      <?php foreach($rows as $row):?>
+        <tr>
+            <td><?=esc($row['title'])?></td>
+            <td><?=esc($row['category_id'])?></td>
+            <td><?=esc($row['price'])?></td>
+            <td><?=esc($row['primary_subject'])?></td>
+            <td><?=date("jS M, Y h:s a", strtotime($row['created_at']))?></td>
+            <td>
+              <i class="bi bi-pencil-square"></i>
+              <i class="bi bi-trash-fill"></i>
+            </td>
+        </tr>
+      <?php endforeach;?>
+      </tbody>
+    <?php endif;?>
   </table>
 <?php endif;?>
 <?php $this->view('admin/adminfooter');?>

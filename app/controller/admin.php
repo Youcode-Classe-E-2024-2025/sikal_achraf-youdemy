@@ -20,18 +20,19 @@ class admin extends Controller
             message("please log in");
             redirect("login");
         }
+        $user_id = auth::getuser_Id();
+        $course = new course();
         $data = [];
         $data['action'] = $action;
         $data['id'] = $id;
         if ($action == "add") {
             $category = new category();
-            $course = new course();
+
             $data['categories'] = $category->findAll("asc");
 
             if ($_SERVER["REQUEST_METHOD"]== "POST")
             {
                 if ($course->validate($_POST)) {
-                    $user_id = auth::getuser_Id();
                     $_POST["user_id"] = $user_id;
 
                     $course->insert($_POST);
@@ -47,6 +48,10 @@ class admin extends Controller
                 }
                 $data['errors'] = $course->errors;
             }
+        }
+        else {
+            //////////////// courses view ////////////////
+            $data['rows'] = $course->where(['user_id'=>$user_id]);
         }
 
         $this->view('admin/courses',$data);

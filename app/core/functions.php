@@ -18,6 +18,18 @@ function set_value($key, $default = '') {
     }
     return '';
 }
+function set_select($key, $value,$default = '') {
+    if (!empty($_POST[$key])) {
+        if ($value==$_POST[$key]) {
+            return ' selected ';
+        }
+    }elseif(!empty($default)) {
+        if ($value==$default) {
+            return ' selected ';
+        }
+    }
+    return '';
+}
 function message($msg="", $erase=false) {
     if (!empty($msg)) {
         $_SESSION['message'] = $msg;

@@ -41,7 +41,7 @@ class model extends database
         $data["user_id"] = $id;
         $this->query($query, $data);
     }
-    public function where($data){
+    public function where($data, $order = "desc", $order_by = "course_id"){
         $keys = array_keys($data);
 
         $query = "select * from " . $this->table . " where ";
@@ -50,6 +50,7 @@ class model extends database
         }
 
         $query = trim($query, "&& ");
+        $query .= " order by $order_by $order ";
         $res = $this->query($query, $data);
         if (is_array($res)) {
             return $res;
