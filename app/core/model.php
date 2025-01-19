@@ -22,7 +22,7 @@ class model extends database
 
         $this->query($query, $data);
     }
-    public function update($id, $data){
+    public function update($id, $data,$idName = "user_id"){
         if (!empty($this->queryColumns)) {
             foreach ($data as $key => $value) {
                 if (!in_array($key, $this->queryColumns)) {
@@ -36,9 +36,9 @@ class model extends database
             $query .= $key . ' = :' . $key . ",";
         }
         $query = trim($query, ",");
-        $query .= " where user_id = :user_id";
+        $query .= " where $idName = :$idName";
         
-        $data["user_id"] = $id;
+        $data[$idName] = $id;
         $this->query($query, $data);
     }
     public function where($data, $order = "desc", $order_by = "course_id"){
@@ -63,9 +63,9 @@ class model extends database
         }
         return false;
     }
-    public function findAll($order = "desc")
+    public function findAll($order = "desc", $id= "id")
     {
-        $query = "select * from " . $this->table . " order by id ".$order;
+        $query = "select * from " . $this->table . " order by $id ".$order;
         
         $res = $this->query($query);
         if (is_array($res)) {

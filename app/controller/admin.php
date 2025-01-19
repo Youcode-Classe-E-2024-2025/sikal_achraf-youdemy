@@ -16,6 +16,9 @@ class admin extends Controller
     }
     public function courses($action= null, $id= null)
     {
+        $user_id = Auth::getId();
+		$course = new Course();
+		$category = new Category();
         if (!auth::logged_in()) {
             message("please log in");
             redirect("login");
@@ -51,7 +54,14 @@ class admin extends Controller
         }
         elseif ($action == "edit") 
         {
+            if ($_SERVER["REQUEST_METHOD"]== "POST")
+            {
+                $id = trim($_GET['url'],'admin/courses/edit/');
+                $course->update($id, $_POST,'course_id');
+                redirect('admin/courses/edit/'.$id);
+            }
             //////////////// get courses info ////////////////
+            $data['categories'] = $category->findAll("asc");
             $data['row'] = $course->first(['user_id'=>$user_id, 'course_id'=>$id]);
         }
         else {

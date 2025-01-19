@@ -51,12 +51,12 @@
   </div>
 <?php elseif ($action == "edit"):?>
 <div class="card">
-  <div class="card-body">
+  <form method="post" class="card-body">
     <h5 class="card-title">Edit Course</h5>
     <?php if(!empty($row)):?>
 
       <div class="float-end">
-        <button class="btn btn-success">Save</button>
+        <button type ="submit" class="btn btn-success">Save</button>
         <a href="<?=ROOT?>/admin/courses">
           <button class="btn btn-primary">Back</button>
         </a>
@@ -85,14 +85,43 @@
           <input type="text">
         </div>
         <div class="tab-pane fade" id="justified-course_landing_page" role="tabpanel" aria-labelledby="course_landing_page-tab">
-          3
-          <input type="text">
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">Course Title</span>
+              <input class="form-control" type="text" id="formFile" name="title" value="<?= set_value('title',$row['title'])?>">
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Price</span>
+            <input name="price" type="number" value ="<?= set_value('price',$row['price'])?>" class="form-control">
+            <span class="input-group-text">.00 $</span>
+          </div>
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">Primary subject</span>
+              <input class="form-control" type="text" id="formFile" name="primary_subject" value="<?= set_value('primary_subject',$row['primary_subject'])?>">
+            </div>
+          </div>
+          <div class="input-group" style="margin-bottom: 20px;">
+            <span class="input-group-text">description</span>
+            <textarea id="desc" name="description" class="form-control" aria-label="description"><?= set_value('description',$row['description'])?></textarea>
+          </div>
+          <div class="col-sm-10">
+            <select name="category_id" class="form-select">
+              <option selected="">--Category--</option>
+              <?php if(!empty($categories)):?>
+                <?php foreach($categories as $cat):?>
+                  <option <?= $data['row']['category_id']==$cat["id"] ? ' selected ' : ''?> value="<?= $cat["id"]?>"><?= esc($cat["category"])?></option>
+                <?php endforeach;?>
+              <?php endif;?>
+            </select>
+          </div>
         </div>
       </div><!-- End Bordered Tabs Justified -->
       <?php else:?>
         <h2>That course wasn't found</h2>
     <?php endif;?>
-  </div>
+  </form>
 </div>
 <?php else:?>
   <h2>My Courses 
