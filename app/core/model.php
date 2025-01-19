@@ -63,9 +63,9 @@ class model extends database
         }
         return false;
     }
-    public function findAll($order = "desc", $id= "id")
+    public function findAll($order = "desc", $idName= "id")
     {
-        $query = "select * from " . $this->table . " order by $id ".$order;
+        $query = "select * from " . $this->table . " order by $idName ".$order;
         
         $res = $this->query($query);
         if (is_array($res)) {
