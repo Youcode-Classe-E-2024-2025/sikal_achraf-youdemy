@@ -116,6 +116,23 @@
               <?php endif;?>
             </select>
           </div>
+          <div class="my-4 row">
+            <div class="col-sm-4">
+              <img class="js-image-upload-preview" src="<?= $row['course_image']?>" style="width: 100%;height: 220px;object-fit: cover;">
+            </div>
+            <div class="col-sm-8">
+              <div  class="h5"><b>Course Image:</b></div>
+              Upload your course image here. It must meet our course image quality standards to be accepted. Important guidelines: 750x422 pixels; .jpg, .jpeg,. gif, or .png. no text on the image.
+            
+              <br><br>
+              <input onchange="upload_course_image(this.files[0])" class="js-image-upload-input" type="file" name="IMG">
+              <div class="progress my-4">
+                    <div class="progress-bar progress-bar-image" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+                <div class="js-image-upload-info hide"></div>
+                <button type="button" onclick="ajax_course_image_cancel()" class="js-image-upload-cancel-button btn btn-warning text-white btn-sm hide">Cancel Upload</button>
+            </div>
+          </div>
         </div>
       </div><!-- End Bordered Tabs Justified -->
       <?php else:?>
@@ -179,6 +196,63 @@
   {
     tab = tab_name;
     sessionStorage.setItem("tab", tab_name);
+  }
+  let course_image_uploading = false;
+
+  function upload_course_image(file)
+  {
+
+    if(course_image_uploading){
+
+      alert("please wait while the other image uploads");
+      return;
+    }
+
+    //display an image preview
+    let img = document.querySelector(".js-image-upload-preview");
+    let link = URL.createObjectURL(file);
+    img.src = link;
+
+    //begin upload
+    course_image_uploading = true;
+
+    let myform = new FormData();
+    ajax_course_image = new XMLHttpRequest();
+
+    ajax_course_image.addEventListener('readystatechange',function(){
+
+      if(ajax_course_image.readyState == 4){
+
+        if(ajax_course_image.status == 200){
+          //everything went well
+          //alert("upload complete");
+          //alert(ajax_course_image.responseText);
+        }
+
+        course_image_uploading = false;
+
+      }
+    });
+
+    ajax_course_image.addEventListener('error',function(){
+      alert("an error occurred");
+    });
+
+    ajax_course_image.upload.addEventListener('progress',function(e){
+
+      let percent = Math.round((e.loaded / e.total) * 100) + "%";
+      document.querySelector(".progress-bar-image").style.width = percent;
+      document.querySelector(".progress-bar-image").innerHTML = percent;
+
+    });
+ 
+    myform.append('data_type','upload_course_image');
+    myform.append('tab_name',tab);
+    myform.append('image',file);
+
+    ajax_course_image.open('post','',true);
+    ajax_course_image.send(myform);
+
   }
 </script>
 <?php $this->view('admin/adminfooter');?>

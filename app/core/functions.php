@@ -59,3 +59,8 @@ function str_to_url() {
     return $url;
 }
 
+function dd($stuff) {
+    echo"<pre>";
+    var_dump($stuff);die;
+    echo"</pre>";
+}
