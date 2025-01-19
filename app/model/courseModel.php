@@ -25,9 +25,21 @@ class course extends model
         if (empty($data['title'])) {
             $this->errors['title'] = "A Course title is required";
         }elseif(!preg_match("/^[a-zA-Z \_\-\&]+$/",trim($data['title']))){
-            $this->errors['title'] = "A Course title onley can have small and capital letters spaces [_&-]";
+            $this->errors['title'] = "A Course title onley can have small and capital letters, spaces or [_&-]";
         }
-        
+
+        if (empty($data['primary_subject'])) {
+            $this->errors['primary_subject'] = "Primary subject is required";
+        }elseif(!preg_match("/^[a-zA-Z \_\-\&]+$/",trim($data['primary_subject']))){
+            $this->errors['primary_subject'] = "Primary subject onley can have small and capital letters, spaces or [_&-]";
+        }
+
+        if (empty($data['price'])) {
+            $this->errors['price'] = "price is required";
+        }elseif(!preg_match("/^[0-9]+$/",trim($data['price']))){
+            $this->errors['price'] = "price onley can only be an integer";
+        }
+
         if (empty($data['category_id'])) {
             $this->errors['category_id'] = "Category is required";
         }

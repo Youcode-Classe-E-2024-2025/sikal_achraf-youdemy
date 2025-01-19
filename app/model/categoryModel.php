@@ -11,7 +11,7 @@ class category extends model
         $this->errors = [];
         if (empty($data['category'])) {
             $this->errors['category'] = "A category is required";
-        }elseif(!preg_match("/^[a-zA-Z]+$/",trim($data['lastname']))){
+        }elseif(!preg_match("/^[a-zA-Z]+$/",trim($data['category']))){
             $this->errors['category'] = "category onley can have small and capital letters";
         }
         

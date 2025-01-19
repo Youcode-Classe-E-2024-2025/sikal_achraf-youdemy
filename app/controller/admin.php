@@ -49,6 +49,11 @@ class admin extends Controller
                 $data['errors'] = $course->errors;
             }
         }
+        elseif ($action == "edit") 
+        {
+            //////////////// get courses info ////////////////
+            $data['row'] = $course->first(['user_id'=>$user_id, 'course_id'=>$id]);
+        }
         else {
             //////////////// courses view ////////////////
             $data['rows'] = $course->where(['user_id'=>$user_id]);
